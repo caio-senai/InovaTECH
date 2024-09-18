@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botões com Pergunta</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: black; /* Cor de fundo padrão antes das imagens aparecerem */
+            font-family: Arial, sans-serif;
+            position: relative;
+            transition: background-image 1s ease; /* Transição suave para a imagem de fundo */
+        }
+        .pergunta {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white; /* Cor do texto da pergunta */
+            text-shadow: 2px 2px 5px rgba(33, 0, 37, 0.7); /* Sombra no texto */
+        }
+        .container-botoes {
+            display: flex;
+            gap: 20px;
+        }
+        .botao {
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            transition: transform 0.2s; /* Transição para a rotação */
+        }
+        #botaoSim {
+            background-color: #28a745;
+        }
+        #botaoNao {
+            background-color: #dc3545;
+        }
+        .botao:hover {
+            transform: rotate(-5deg); /* Rotação inversa ao passar o mouse */
+        }
+        #botaoNao:hover {
+            transform: rotate(5deg); /* Rotação normal para o botão Não */
+        }
+        .mensagem {
+            font-size: 20px;
+            color: #fff; /* Cor do texto da mensagem */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+        #imagemTalvez, #imagemNam {
+            display: none;
+            width: 300px; /* Ajuste o tamanho conforme necessário */
+            margin-top: 20px;
+            opacity: 0; /* Começa invisível para o efeito fade-in */
+            transition: opacity 1s ease; /* Efeito de fade-in */
+        }
+    </style>
+</head>
+<body>
+    <div class="pergunta">isso foi uma pergunta?</div>
+    <div class="container-botoes">
+        <button id="botaoSim" class="botao">talvez</button>
+        <button id="botaoNao" class="botao" onclick="moverBotaoNao()">nam</button>
+    </div>
+    <div id="mensagem" class="mensagem">raleu mofi</div>
+    <img id="imagemTalvez" src="../18-09/sorry.jpg"> <!-- Substitua pelo caminho da sua imagem de "talvez" -->
+    <img id="imagemNam" src="../18-09/bob esponja.jpg"> <!-- Substitua pelo caminho da sua imagem de "nam" -->
+
+    <script>
+        function posicionarBotaoInicial() {
+            const botaoSim = document.getElementById('botaoSim');
+            const botaoNao = document.getElementById('botaoNao');
+            
+            const largura = window.innerWidth;
+            const altura = window.innerHeight;
+
+            const posX = (largura - (botaoSim.offsetWidth + botaoNao.offsetWidth + 20)) / 2;
+            const posY = (altura - botaoSim.offsetHeight) / 2 + 40;
+
+            botaoSim.style.left = `${posX}px`;
+            botaoSim.style.top = `${posY}px`;
+            
+            botaoNao.style.left = `${posX + botaoSim.offsetWidth + 20}px`;
+            botaoNao.style.top = `${posY}px`;
+        }
+
+        function moverBotaoNao() {
+            const largura = window.innerWidth;
+            const altura = window.innerHeight;
+
+            const botaoNao = document.getElementById('botaoNao');
+            const larguraBotao = botaoNao.offsetWidth;
+            const alturaBotao = botaoNao.offsetHeight;
+
+            const novaX = Math.random() * (largura - larguraBotao);
+            const novaY = Math.random() * (altura - alturaBotao);
+
+            botaoNao.style.left = `${novaX}px`;
+            botaoNao.style.top = `${novaY}px`;
+        }
+
+        function mostrarImagemTalvez() {
+            const imagemTalvez = document.getElementById('imagemTalvez');
+            imagemTalvez.style.display = 'block'; // Exibe a imagem
+            setTimeout(() => {
+                imagemTalvez.style.opacity = 1; // Aplica o efeito fade-in
+            }, 10); // Um pequeno delay para garantir que o display seja aplicado
+
+            setTimeout(() => {
+                location.reload();
+            }, 2000); // Recarrega após 2 segundos
+        }
+
+        function mostrarImagemNam() {
+            const imagemNam = document.getElementById('imagemNam');
+            imagemNam.style.display = 'block'; // Exibe a imagem
+            setTimeout(() => {
+                imagemNam.style.opacity = 1; // Aplica o efeito fade-in
+            }, 10); // Um pequeno delay para garantir que o display seja aplicado
+
+            setTimeout(() => {
+                location.reload();
+            }, 2000); // Recarrega após 2 segundos
+        }
+
+        document.getElementById('botaoSim').addEventListener('click', mostrarImagemTalvez);
+        document.getElementById('botaoNao').addEventListener('click', mostrarImagemNam);
+
+        window.onload = posicionarBotaoInicial;
+    </script>
+</body>
+</html>
