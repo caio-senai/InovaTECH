@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botões com Pergunta</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        .pergunta {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .container-botoes {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .botao {
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+        }
+        #botaoSim {
+            background-color: #28a745;
+        }
+        #botaoNao {
+            background-color: #dc3545;
+        }
+        .mensagem {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 20px;
+            color: #333;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="pergunta">Me dá nota 10 pra passar no curso?</div>
+    <div class="container-botoes">
+        <button id="botaoSim" class="botao">Sim</button>
+        <button id="botaoNao" class="botao">Não</button>
+    </div>
+    <div id="mensagem" class="mensagem">Muito obrigado, fissora ❤️</div>
+    <script>
+        function posicionarBotaoInicial() {
+            const botaoSim = document.getElementById('botaoSim');
+            const botaoNao = document.getElementById('botaoNao');
+            
+            const largura = window.innerWidth;
+            const altura = window.innerHeight;
+
+            const posX = (largura - (botaoSim.offsetWidth + botaoNao.offsetWidth + 20)) / 2;
+            const posY = (altura - botaoSim.offsetHeight) / 2 + 40;
+
+            botaoSim.style.left = `${posX}px`;
+            botaoSim.style.top = `${posY}px`;
+            
+            botaoNao.style.left = `${posX + botaoSim.offsetWidth + 20}px`;
+            botaoNao.style.top = `${posY}px`;
+        }
+
+        function moverBotaoNao() {
+            const largura = window.innerWidth;
+            const altura = window.innerHeight;
+
+            const botaoNao = document.getElementById('botaoNao');
+            const larguraBotao = botaoNao.offsetWidth;
+            const alturaBotao = botaoNao.offsetHeight;
+
+            const novaX = Math.random() * (largura - larguraBotao);
+            const novaY = Math.random() * (altura - alturaBotao);
+
+            botaoNao.style.left = `${novaX}px`;
+            botaoNao.style.top = `${novaY}px`;
+        }
+
+        function mostrarMensagemERecarregar() {
+            const mensagem = document.getElementById('mensagem');
+            mensagem.style.display = 'block';
+            
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        }
+
+        window.onload = posicionarBotaoInicial;
+
+        document.getElementById('botaoNao').addEventListener('click', moverBotaoNao);
+        document.getElementById('botaoSim').addEventListener('click', mostrarMensagemERecarregar);
+    </script>
+</body>
+</html>
