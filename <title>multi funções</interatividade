@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multi funções</title>
+</head>
+
+<body>
+    <body onload="exibirAlerta()"></body> <!-- alerta do site ao logar -->
+    <h1>Este é um site simples demonstrando as funções básicas de JavaScript.</h1> 
+    
+    <button onclick="mudarCorFundo()">Mudar Cor do Fundo</button>
+    <button onclick="apagarConteudo()">Clique aqui para apagar o conteúdo</button>
+    <button ondblclick="aoDuploClique()">Dê um duplo clique aqui</button>
+    <button onclick="inserirNome()">inserir nome</button>
+    <button onclick="calcularMedia()">calcular média</button>
+    <button onclick="verificarParOuImpar()">verificar Par ou Ímpar</button>
+    <button onclick="calcular()">fazer cálculos</button>
+    <button onclick="criarTabela()">criação de tabela</button>
+
+<style> /* CSS Interno */
+    body {
+        background-color: lightblue;
+        font-family: Arial, sans-serif;
+    }
+    h1 {
+        color: white;
+        text-align: center;
+    }
+    button {
+    background-color: darkblue;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    cursor: pointer;
+    font-size: 16px;
+    }
+
+    /* CSS Inline */
+    #nomeUsuario {
+        color: red;
+        font-size: 20px;
+    }
+
+    #dataAtual {
+        color: green;
+        font-size: 18px;
+    }
+
+    /* CSS Global */
+    * {
+        box-sizing: border-box;
+    }
+
+    /* CSS Inline e Global */
+    body {
+        background-color: lightblue;
+        font-family: Arial, sans-serif;
+    }
+    h1 {
+        color: white;
+        text-align: center;
+    }
+
+    button {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 15px; /* adiciona o espaçamento de 15px entre os botões */
+            display: block; /* faz com que os botões fiquem um embaixo do outro */
+            width: 100%; /* opcional: Define a largura dos botões para 100% */
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* CSS Global */
+    * {
+        box-sizing: border-box;
+    }
+</style>
+
+<!-- JS Interno -->
+<script>
+    function exibirAlerta() {
+    alert("vc entrou no meu site!"); //Alerta do site
+}
+
+    function apagarConteudo() {
+        document.body.innerHTML = ''; // apaga todo o conteúdo do body
+}
+
+    function aoDuploClique() { //duplo clique
+            alert("clicou duas vezes pq?");
+}
+
+    function inserirNome() { // função para inserir o nome do usuário e mostrar no HTML
+            var nome = prompt("seu nome: ");
+            document.getElementById("nomeUsuario").innerHTML = "Bem-vindo, " + nome + "!";
+}
+
+    function mostrarDataAtual() {  // função que mostra a data atual no formato dia/mês/ano
+            var dataAtual = new Date();
+            var dataFormatada = dataAtual.getDate() + '/' + (dataAtual.getMonth() + 1) + '/' + dataAtual.getFullYear();
+            document.getElementById("dataAtual").innerHTML = "Data de hoje: " + dataFormatada;
+}
+
+    function calcularMedia() { // função que calcula a média de três números
+            var num1 = parseFloat(prompt("Digite o primeiro número:"));
+            var num2 = parseFloat(prompt("Digite o segundo número:"));
+            var num3 = parseFloat(prompt("Digite o terceiro número:"));
+            var media = (num1 + num2 + num3) / 3;
+            alert("a média dos números é: " + media.toFixed(2));
+}
+
+    function verificarParOuImpar() { // função que verifica se um número é par ou ímpar
+            var numero = parseInt(prompt("Digite um número:"));
+            if (numero % 2 === 0) {
+                alert("o número " + numero + " é par.");
+            } else {
+                alert("o número " + numero + " é ímpar.");
+            }
+}
+
+    window.onload = function() { // chamar a função para mostrar a data ao carregar a página
+            exibirAlerta(); // exibe alerta ao carregar
+            mostrarDataAtual(); // exibe a data atual ao carregar
+};
+
+    function mudarCorFundo() { //muda a cor do fundo do body
+        var cor = prompt("coloque a cor desejada (ex: #FF0000)");
+        document.body.style.backgroundColor = cor;
+    }
+    
+    function calcular() {
+        var valorBase = parseFloat(prompt("digite o valor base:"));
+        var valor = parseFloat(prompt("digite o valor:"));
+        var operacao = prompt("digite a operação (adição, subtração ou porcentagem):").toLowerCase();
+        var resultado;
+
+            switch (operacao) {
+                case 'adição':
+                    resultado = valorBase + valor; //cálculo da adição
+                    alert("o resultado da adição é: " + resultado); //resultado da adição
+                    break;
+                case 'subtração':
+                    resultado = valorBase - valor; //cálculo da subtração
+                    alert("o resultado da subtração é: " + resultado); //resultado da subtração
+                    break;
+                case 'porcentagem':
+                    resultado = (valorBase * valor) / 100; //cálculo da porcentagem
+                    alert("o valor " + valor + "% de " + valorBase + " é: " + resultado); //resultado da porcentagem
+                    break;
+                
+                default: //caso dê errado
+                    alert("Operação Inválida. Escolha: adição, subtração ou porcentagem.");
+            }
+        }
+
+        function criarTabela() {
+        var dados = ["Item 1", "Item 2", "Item 3", "Item 4"]; // exemplo de array
+        var tabela = document.createElement("table"); //cruação da tabela
+        var corpoTabela = document.createElement("tbody");
+
+        for (var i = 0; i < dados.length; i++) {
+            var linha = document.createElement("tr");
+            var celula = document.createElement("td");
+            celula.textContent = dados[i];
+            linha.appendChild(celula);
+            corpoTabela.appendChild(linha); //linha da tabela
+        }
+
+        tabela.appendChild(corpoTabela); //corpo da tabela
+        document.body.appendChild(tabela);
+    }
+
+</script>
+</body>
+</html>
